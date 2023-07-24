@@ -1,3 +1,7 @@
+## 0.7.1
+
+- updated gradles
+
 ## 0.7.0
 
 - made it compatible with latest flutter versions
