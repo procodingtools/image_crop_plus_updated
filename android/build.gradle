@@ -1,4 +1,4 @@
-group 'eu.wroblewscy.marcin.imagecrop'
+group 'eu.wroblewscy.marcin.imagecropupdated'
 version '1.0-SNAPSHOT'
 
 buildscript {

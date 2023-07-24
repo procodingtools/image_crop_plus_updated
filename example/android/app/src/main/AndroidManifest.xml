@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="eu.wroblewscy.marcin.imagecropexample">
+          package="eu.wroblewscy.marcin.imagecropupdatedexample">
 
     <!-- The INTERNET permission is required for development. Specifically,
          flutter needs it to communicate with the running application
@@ -16,7 +16,7 @@
         
         android:name="${applicationName}" 
         android:icon="@mipmap/ic_launcher"
-        android:label="image_crop_plus_example">
+        android:label="image_crop_plus_updated_example">
         <activity
             android:name=".MainActivity"
             

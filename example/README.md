@@ -1,6 +1,6 @@
-# image_crop_plus_example
+# image_crop_plus_updated_example
 
-Demonstrates how to use the image_crop_plus plugin.
+Demonstrates how to use the image_crop_plus_updated plugin.
 
 ## Getting Started
 

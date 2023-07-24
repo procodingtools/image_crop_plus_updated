@@ -1,4 +1,4 @@
-package eu.wroblewscy.marcin.imagecropexample;
+package eu.wroblewscy.marcin.imagecropupdatedexample;
 
 import android.os.Bundle;
 import io.flutter.plugins.GeneratedPluginRegistrant;

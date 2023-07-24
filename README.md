@@ -12,10 +12,10 @@ All of the computation intensive work is done off a main thread via dispatch que
 
 ## Installation
 
-Add `image_crop_plus` [![image_crop_plus](https://img.shields.io/pub/v/image_crop_plus.svg)](https://pub.dartlang.org/packages/image_crop_plus) as [a dependency in `pubspec.yaml`](https://flutter.io/using-packages/#managing-package-dependencies--versions).
+Add `image_crop_plus_updated` [![image_crop_plus_updated](https://img.shields.io/pub/v/image_crop_plus_updated.svg)](https://pub.dartlang.org/packages/image_crop_plus_updated) as [a dependency in `pubspec.yaml`](https://flutter.io/using-packages/#managing-package-dependencies--versions).
 
 ```shell
-flutter pub add image_crop_plus
+flutter pub add image_crop_plus_updated
 ```
 
 ## Usage
@@ -94,3 +94,8 @@ final croppedFile = await ImageCrop.cropImage(
     area: crop.area,
 );
 ```
+
+## Disclaimer:
+
+This package is a modified version of an existing [work](https://pub.dev/packages/image_crop_plus) by [wrbl.xyz](https://pub.dev/publishers/wrbl.xyz), adapted to be compatible with Flutter 3.0
+Thankyou wrbl.xyz for your efforts!

@@ -1,4 +1,4 @@
-package eu.wroblewscy.marcin.imagecrop;
+package eu.wroblewscy.marcin.imagecropupdated;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -41,7 +41,8 @@ import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, MethodCallHandler, PluginRegistry.RequestPermissionsResultListener {
+public final class ImageCropPlugin
+        implements FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.RequestPermissionsResultListener {
     private static final int PERMISSION_REQUEST_CODE = 13094;
 
     private MethodChannel channel;
@@ -55,7 +56,8 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
         this.activity = activity;
     }
 
-    public ImageCropPlugin(){ }
+    public ImageCropPlugin() {
+    }
 
     /**
      * legacy APIs
@@ -68,9 +70,9 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
-      this.setup(binding.getBinaryMessenger());
+        this.setup(binding.getBinaryMessenger());
     }
-  
+
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         channel.setMethodCallHandler(null);
@@ -83,11 +85,11 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
         activity = activityPluginBinding.getActivity();
         activityPluginBinding.addRequestPermissionsResultListener(this);
     }
-   
+
     @Override
     public void onDetachedFromActivity() {
         activity = null;
-        if(binding != null){
+        if (binding != null) {
             binding.removeRequestPermissionsResultListener(this);
         }
     }
@@ -96,17 +98,16 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) {
         this.onAttachedToActivity(activityPluginBinding);
     }
-  
+
     @Override
     public void onDetachedFromActivityForConfigChanges() {
         this.onDetachedFromActivity();
     }
-  
+
     private void setup(BinaryMessenger messenger) {
-        channel = new MethodChannel(messenger, "plugins.marcin.wroblewscy.eu/image_crop_plus");
+        channel = new MethodChannel(messenger, "plugins.marcin.wroblewscy.eu/image_crop_plus_updated");
         channel.setMethodCallHandler(this);
     }
-
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -178,9 +179,9 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
                     transformations.postRotate(options.getDegrees());
                     Bitmap oldBitmap = srcBitmap;
                     srcBitmap = Bitmap.createBitmap(oldBitmap,
-                                                    0, 0,
-                                                    oldBitmap.getWidth(), oldBitmap.getHeight(),
-                                                    transformations, true);
+                            0, 0,
+                            oldBitmap.getWidth(), oldBitmap.getHeight(),
+                            transformations, true);
                     oldBitmap.recycle();
                 }
 
@@ -196,9 +197,9 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
                 paint.setDither(true);
 
                 Rect srcRect = new Rect((int) (srcBitmap.getWidth() * area.left),
-                                        (int) (srcBitmap.getHeight() * area.top),
-                                        (int) (srcBitmap.getWidth() * area.right),
-                                        (int) (srcBitmap.getHeight() * area.bottom));
+                        (int) (srcBitmap.getHeight() * area.top),
+                        (int) (srcBitmap.getWidth() * area.right),
+                        (int) (srcBitmap.getHeight() * area.bottom));
                 Rect dstRect = new Rect(0, 0, width, height);
                 canvas.drawBitmap(srcBitmap, srcRect, dstRect, paint);
 
@@ -245,7 +246,7 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
                 ImageOptions options = decodeImageOptions(path);
                 BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
                 bitmapOptions.inSampleSize = calculateInSampleSize(options.getWidth(), options.getHeight(),
-                                                                   maximumWidth, maximumHeight);
+                        maximumWidth, maximumHeight);
 
                 Bitmap bitmap = BitmapFactory.decodeFile(path, bitmapOptions);
                 if (bitmap == null) {
@@ -259,9 +260,11 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
                 }
 
                 if (options.getWidth() > maximumWidth && options.getHeight() > maximumHeight) {
-                    float ratio = Math.max(maximumWidth / (float) options.getWidth(), maximumHeight / (float) options.getHeight());
+                    float ratio = Math.max(maximumWidth / (float) options.getWidth(),
+                            maximumHeight / (float) options.getHeight());
                     Bitmap sample = bitmap;
-                    bitmap = Bitmap.createScaledBitmap(sample, Math.round(bitmap.getWidth() * ratio), Math.round(bitmap.getHeight() * ratio), true);
+                    bitmap = Bitmap.createScaledBitmap(sample, Math.round(bitmap.getWidth() * ratio),
+                            Math.round(bitmap.getHeight() * ratio), true);
                     sample.recycle();
                 }
 
@@ -352,7 +355,8 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
                 result.success(true);
             } else {
                 permissionRequestResult = result;
-                activity.requestPermissions(new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                activity.requestPermissions(new String[] { READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE },
+                        PERMISSION_REQUEST_CODE);
             }
         } else {
             result.success(true);
@@ -365,7 +369,7 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
             int readExternalStorage = getPermissionGrantResult(READ_EXTERNAL_STORAGE, permissions, grantResults);
             int writeExternalStorage = getPermissionGrantResult(WRITE_EXTERNAL_STORAGE, permissions, grantResults);
             permissionRequestResult.success(readExternalStorage == PackageManager.PERMISSION_GRANTED &&
-                                                    writeExternalStorage == PackageManager.PERMISSION_GRANTED);
+                    writeExternalStorage == PackageManager.PERMISSION_GRANTED);
             permissionRequestResult = null;
         }
         return false;
@@ -382,7 +386,7 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
 
     private File createTemporaryImageFile() throws IOException {
         File directory = activity.getCacheDir();
-        String name = "image_crop_plus_" + UUID.randomUUID().toString();
+        String name = "image_crop_plus_updated_" + UUID.randomUUID().toString();
         return File.createTempFile(name, ".jpg", directory);
     }
 
@@ -405,27 +409,26 @@ public final class ImageCropPlugin implements FlutterPlugin , ActivityAware, Met
             ExifInterface sourceExif = new ExifInterface(source.getAbsolutePath());
             ExifInterface destinationExif = new ExifInterface(destination.getAbsolutePath());
 
-            List<String> tags =
-                    Arrays.asList(
-                            ExifInterface.TAG_F_NUMBER,
-                            ExifInterface.TAG_EXPOSURE_TIME,
-                            ExifInterface.TAG_PHOTOGRAPHIC_SENSITIVITY,
-                            ExifInterface.TAG_GPS_ALTITUDE,
-                            ExifInterface.TAG_GPS_ALTITUDE_REF,
-                            ExifInterface.TAG_FOCAL_LENGTH,
-                            ExifInterface.TAG_GPS_DATESTAMP,
-                            ExifInterface.TAG_WHITE_BALANCE,
-                            ExifInterface.TAG_GPS_PROCESSING_METHOD,
-                            ExifInterface.TAG_GPS_TIMESTAMP,
-                            ExifInterface.TAG_DATETIME,
-                            ExifInterface.TAG_FLASH,
-                            ExifInterface.TAG_GPS_LATITUDE,
-                            ExifInterface.TAG_GPS_LATITUDE_REF,
-                            ExifInterface.TAG_GPS_LONGITUDE,
-                            ExifInterface.TAG_GPS_LONGITUDE_REF,
-                            ExifInterface.TAG_MAKE,
-                            ExifInterface.TAG_MODEL,
-                            ExifInterface.TAG_ORIENTATION);
+            List<String> tags = Arrays.asList(
+                    ExifInterface.TAG_F_NUMBER,
+                    ExifInterface.TAG_EXPOSURE_TIME,
+                    ExifInterface.TAG_PHOTOGRAPHIC_SENSITIVITY,
+                    ExifInterface.TAG_GPS_ALTITUDE,
+                    ExifInterface.TAG_GPS_ALTITUDE_REF,
+                    ExifInterface.TAG_FOCAL_LENGTH,
+                    ExifInterface.TAG_GPS_DATESTAMP,
+                    ExifInterface.TAG_WHITE_BALANCE,
+                    ExifInterface.TAG_GPS_PROCESSING_METHOD,
+                    ExifInterface.TAG_GPS_TIMESTAMP,
+                    ExifInterface.TAG_DATETIME,
+                    ExifInterface.TAG_FLASH,
+                    ExifInterface.TAG_GPS_LATITUDE,
+                    ExifInterface.TAG_GPS_LATITUDE_REF,
+                    ExifInterface.TAG_GPS_LONGITUDE,
+                    ExifInterface.TAG_GPS_LONGITUDE_REF,
+                    ExifInterface.TAG_MAKE,
+                    ExifInterface.TAG_MODEL,
+                    ExifInterface.TAG_ORIENTATION);
 
             for (String tag : tags) {
                 String attribute = sourceExif.getAttribute(tag);
